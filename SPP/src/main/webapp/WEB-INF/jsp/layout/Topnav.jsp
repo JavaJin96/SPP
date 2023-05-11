@@ -17,12 +17,21 @@
 
 <script type="text/javascript">
 </script>
-
-<ul>
-	<li><a href="#LINK" onclick="location.href='/SSP/p1/main.do'" >p1</a></li>
-    <li><a href="#LINK" onclick="location.href='/SSP/p2/main.do'" >p2</a></li>
-    <li><a href="#LINK" onclick="location.href='/SSP/test/main.do'" >test</a></li>
-    <li><a href="#LINK" onclick="location.href='/SSP/dc/main.do'" >dc</a></li>
-</ul>
+<style>
+	#topnav_div{
+		width:100%;
+		text-align: center;
+		font-size:2.5em;
+		margin: auto;
+	}
+</style>
+<div id="topnav_div">
+	<ul>
+		<li><a href="#LINK" onclick="location.href='/SPP/p1/main.do'" >p1</a></li>
+	    <li><a href="#LINK" onclick="location.href='/SPP/p2/main.do'" >p2</a></li>
+	    <li><a href="#LINK" onclick="location.href='/SPP/test/main.do'" >test</a></li>
+	    <li><a href="#LINK" onclick="location.href='/SPP/dc/main.do'" >dc</a></li>
+	</ul>
+</div>
 
 <!-- //topmenu end -->

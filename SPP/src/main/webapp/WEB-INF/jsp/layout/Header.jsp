@@ -13,7 +13,15 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import ="egovframework.com.cmm.LoginVO" %>
-
+<style>
+	#project_title{
+		text-align: center;
+		width:100%;
+	}
+	#project_title a{
+		font-size:3.0em;
+	}
+</style>
 <div id="project_title">
-	<a href="<c:url value='/main/main.do'/>" target="_blank">상진</a>
+	<span><a href="<c:url value='/main/main.do'/>">상진</a></span>
 </div>

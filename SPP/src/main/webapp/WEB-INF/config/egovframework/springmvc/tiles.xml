@@ -17,6 +17,26 @@
 		<put-attribute name="title" value="메인" />
 	</definition>
 	
+	<definition name="dcPage" extends="standar-layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/dc/DcPage.jsp" />
+		<put-attribute name="title" value="메인" />
+	</definition>
+	
+	<definition name="p1Page" extends="standar-layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/p1/P1Page.jsp" />
+		<put-attribute name="title" value="메인" />
+	</definition>
+	
+	<definition name="p2Page" extends="standar-layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/p2/P2Page.jsp" />
+		<put-attribute name="title" value="메인" />
+	</definition>
+	
+	<definition name="testPage" extends="standar-layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/test/TestPage.jsp" />
+		<put-attribute name="title" value="메인" />
+	</definition>
+	
 <!-- 	<definition name="mainPage" extends="standar-layout">
 		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
 		<put-attribute name="title" value="게시판" />

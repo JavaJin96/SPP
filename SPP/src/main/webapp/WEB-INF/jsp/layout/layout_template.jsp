@@ -20,9 +20,39 @@
 <html>
 <head>
 <meta http-equiv="Content-Language" content="ko" >
-<title>표준프레임워크 경량환경 홈페이지 템플릿</title>
+<title>박상진의 홈페이지</title>
+
+<!-- common.css  -->
 <link href="<c:url value='/'/>css/common.css" rel="stylesheet" type="text/css" >
+
+<!-- bootstrap 관련 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
+<style>
+	#header{
+		width:100%;
+		height:100px;
+	}
+	#topnavi{
+		width:100%;
+		height:100px;	
+	}
+	#main_container{
+		width: 70%;
+		margin-left: 15%;
+		margin-right: 15%; 
+		height: 1500px;
+	}
+	#footer{
+		width:100%;
+		height:150px;
+	}
+	a{
+		text-decoration: none;
+	}
+</style>
 <body>
 <noscript>자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>	
 

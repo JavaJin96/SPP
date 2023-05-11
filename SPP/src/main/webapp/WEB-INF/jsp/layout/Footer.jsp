@@ -13,5 +13,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
-<div id="copyright">이곳은 Footer 입니다. <br/>© </div>
+<style>
+	#copyright{
+		font-size:1.6em;
+		width:100%;
+		text-align: center;
+	}
+</style>
+<div id="copyright">javajin96@gmail.com<br/>©copyright JavaJin96</div>
