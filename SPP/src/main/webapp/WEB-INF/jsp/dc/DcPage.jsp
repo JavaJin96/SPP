@@ -13,13 +13,11 @@
 	}
 	#leftTopDiv{
 		display:inline-block;
-		border:1px solid black;
 		width:29.5%;
 		height:1500px;
 	}
 	#rightDiv{
 		display:inline-block;
-		border:1px solid black;
 		width:70%;
 		float:right;
 		height:1500px;
@@ -35,15 +33,50 @@
 		margin-top: 30px;
 	}
 </style>
-
+<script>
+	$( document ).ready(function() {
+		/* 파일 업로드 비동기 처리용 스크립트 */
+/* 		$("#subBtn").on("click", function(){
+			var form = new FormData(document.getElementById('fileUploadForm'));
+			var url = "${pageContext.request.contextPath}/dc/fileUpload.do";
+			$.ajax({
+				url: url,
+				data: form,
+				dataType: 'json',
+				processData: false,
+				contentType: false,
+				type: 'POST',
+				success: function (response) {
+		  			alert(response);
+				},error: function (jqXHR) {
+		  			alert(jqXHR.responseText);
+				}
+			});	
+		}); */
+		
+		$(".dlBtn").on("click", function(){
+			var fileName = $(this).data("filename");
+			var url = "${pageContext.request.contextPath}/dc/fileDownload.do?fileName="+fileName;
+			location.href = url;
+		});
+		
+		$(".delBtn").on("click", function(){
+			var fileName = $(this).data("filename");
+			var url = "${pageContext.request.contextPath}/dc/fileDelete.do?fileName="+fileName;
+			location.href = url;
+		});
+		
+	});
+</script>
 <div id="dc_Div">
 
 	<div id="leftTopDiv">
 		<div id="fileUploadDiv">
-			<form id="fileUploadForm">
+			<form id="fileUploadForm" action="/SPP/dc/fileUpload.do" enctype="multipart/form-data" method="post">
 				<h3>파일 업로드</h3>
-				<input class="form-control" type="file"><br>
-				<input type="button" class="btn btn-primary" value="업로드">
+				<input class="form-control" type="file" name="file1"><br>
+				<button id="subBtn" type="submit" class="btn btn-primary">업로드</button>
+				<!-- <input id="subBtn" type="button" class="btn btn-primary" value="업로드"> -->
 			</form>
 		</div>
 	</div>
@@ -56,18 +89,20 @@
 					<th>파일명</th>
 					<th>파일용량</th>
 					<th>다운로드</th>
+					<th>삭제</th>
 				</tr>
-				<c:if test="${tempTableData eq null}">
+				<c:if test="${fileVoList eq null}">
 					<tr>
-						<td colspan="3">파일이 없습니다.</td>
+						<td colspan="4">파일이 없습니다.</td>
 					</tr>
 				</c:if>
-				<c:if test="${tempTableData ne null}">
-					<c:forEach items="${tempTableData }" var="tableData">
+				<c:if test="${fileVoList ne null}">
+					<c:forEach items="${fileVoList }" var="file">
 						<tr>
-							<td>${tableData.name }</td>
-							<td>${tableData.size }</td>
-							<td><input type="button" value="다운로드"></td>
+							<td>${file.fileName }</td>
+							<td>${file.fileSize }</td>
+							<td><input type="button" value="다운로드" class="btn btn-primary dlBtn" data-filename="${file.fileName }"></td>
+							<td><input type="button" value="삭제" class="btn btn-primary delBtn" data-filename="${file.fileName }"></td>
 						</tr>
 					</c:forEach>
 				</c:if>
