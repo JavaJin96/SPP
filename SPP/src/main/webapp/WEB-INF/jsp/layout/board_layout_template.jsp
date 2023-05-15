@@ -49,7 +49,7 @@
 		width: 70%;
 		margin-left: 15%;
 		margin-right: 15%; 
-		height: 1500px;
+		height: 700px;
 	}
 	#footer{
 		width:100%;
