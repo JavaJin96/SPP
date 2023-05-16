@@ -22,7 +22,8 @@ public class DcService {
 	
 	
 	public ArrayList<FileVO> fileSelect(){
-		String filePath = "C:/Users/park/git/SPP/SPP/src/main/download";
+		//String filePath = "C:/Users/park/git/SPP/SPP/src/main/download";
+		String filePath = "/var/lib/tomcat9/webapps/SPP/WEB-INF/download";
 		File file = new File(filePath);
 		File fileArr [] = file.listFiles();
 		ArrayList<FileVO> fileVoList = new ArrayList<FileVO>();
@@ -38,7 +39,8 @@ public class DcService {
 	public boolean fileUpload(MultipartHttpServletRequest mre, HttpServletRequest req) {
 		
 		MultipartFile mf = mre.getFile("file1");
-		String filePath = "C:/Users/park/git/SPP/SPP/src/main/download/";
+		//String filePath = "C:/Users/park/git/SPP/SPP/src/main/download/";
+		String filePath = "/var/lib/tomcat9/webapps/SPP/WEB-INF/download/";
 		File file = new File(filePath+mf.getOriginalFilename());
 		System.out.println(filePath+mf.getOriginalFilename());
 		try {
@@ -55,7 +57,8 @@ public class DcService {
 	}
 	
 	public void fileDownload(String fileName, HttpServletResponse resp) throws IOException {
-		String path = "C:/Users/park/git/SPP/SPP/src/main/download/";
+		//String path = "C:/Users/park/git/SPP/SPP/src/main/download/";
+		String path = "/var/lib/tomcat9/webapps/SPP/WEB-INF/download/";
 		String filePath = path + fileName;
 		File file = new File(filePath);
 		try {
@@ -80,7 +83,8 @@ public class DcService {
 	}
 	
 	public String fileDelete(String fileName) {
-		String path = "C:/Users/park/git/SPP/SPP/src/main/download/";
+		//String path = "C:/Users/park/git/SPP/SPP/src/main/download/";
+		String path = "/var/lib/tomcat9/webapps/SPP/WEB-INF/download/";
 		String filePath = path + fileName;
 		File file = new File(filePath);
 		

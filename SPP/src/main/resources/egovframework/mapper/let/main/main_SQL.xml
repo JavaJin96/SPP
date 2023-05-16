@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mainDAO">
+	
+	<select id="mainDAO.testSelectAll" resultType="SPP.main.MemberVO">
+		SELECT * FROM MEMBER
+	</select>
+	
+	<select id="mainDAO.selectLogin" parameterType="SPP.main.MemberVO" resultType="SPP.main.MemberVO">
+		SELECT * FROM MEMBER
+		WHERE MEM_ID LIKE #{memId}
+		AND MEM_PASS LIKE #{memPass}
+	</select>
+	
+	<select id="mainDAO.selectAllBoard" resultType="SPP.main.BoardVO">
+		SELECT * FROM BOARD
+	</select>
+	
+	<insert id="mainDAO.insertBoard" parameterType="SPP.main.BoardVO">
+		INSERT INTO BOARD VALUES
+		(SEQ_BOARD.NEXTVAL, #{boTitle}, #{boWriter}, #{boContent}, SYSDATE, '0')
+	</insert>
+	
+</mapper>
