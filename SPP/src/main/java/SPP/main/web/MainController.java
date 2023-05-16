@@ -54,7 +54,7 @@ public class MainController {
 			System.out.println("로그인 실패");
 			session.setAttribute("loginMember", null);
 		}
-		mav.setViewName("mainPage");
+		mav.setViewName("redirect:/main/main.do");
 		return mav;
 	}
 	
@@ -63,7 +63,7 @@ public class MainController {
 		HttpSession session = req.getSession();
 		session.removeAttribute("loginMember");
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("mainPage");
+		mav.setViewName("redirect:/main/main.do");
 		return mav;
 	}
 	
