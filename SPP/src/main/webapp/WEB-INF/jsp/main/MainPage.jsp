@@ -13,19 +13,16 @@
 	}
 	#leftTopDiv{
 		display:inline-block;
-		border:1px solid black;
 		width:70%;
 		height:750px;
 	}
 	#leftDownDiv{
 		display:inline-block;
-		border:1px solid black;
 		width:70%;
 		height:750px;
 	}
 	#rightDiv{
 		display:inline-block;
-		border:1px solid black;
 		width:29.5%;
 		float:right;
 		height:1500px;
@@ -50,8 +47,26 @@
 		float:right;
 		margin-bottom: 10px;
 	}
+	#leftIf{
+		width:100%;
+		height:750px;
+	}
+	#loginBox{
+		height:300px;
+	}
+	#calendar{
+		height:400px;
+		font-size: 0.4em;
+	}
 </style>
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+	var calendarEl = document.getElementById('calendar');
+	var calendar = new FullCalendar.Calendar(calendarEl, {
+		initialView: 'dayGridMonth'
+	});
+	calendar.render();
+});
 $( document ).ready(function() {
 	
 	$("#loginBtn").on("click", function(){
@@ -63,7 +78,16 @@ $( document ).ready(function() {
 	});
 	
 	$("#newBdBtn").on("click", function(){
-		location.href = "${pageContext.request.contextPath}/main/newBoard.do";
+		location.href = "${pageContext.request.contextPath}/board/boardForm.do";
+	});
+	
+	$(".boardTr").on("click" , function(){
+		var boNo = $(this).data("bono");
+		location.href = "${pageContext.request.contextPath }/board/boardDtl.do?boNo=" + boNo;
+	});
+	
+	$("#adminBtn").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/adminMain.do";
 	});
 	
 });
@@ -73,34 +97,7 @@ $( document ).ready(function() {
 <div id="main_Div">
 
 	<div id="leftTopDiv">
-		<div id="boadrDiv">
-			<h4 style="display:inline-block;">자유게시판</h4><input type="button" value="글작성하기" class="btn btn-primary" id="newBdBtn">
-			<table class="table table-bordered" id="boardTb">
-				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>내용</th>
-					<th>작성자</th>
-					<th>작성일</th>
-				</tr>
-				<c:if test="${fn:length(bvoList) > 0 }">
-					<c:forEach items="${bvoList }" var="bvo">
-						<tr>
-							<td>${bvo.boNo }</td>
-							<td>${bvo.boTitle }</td>
-							<td>${bvo.boContent }</td>
-							<td>${bvo.boWriter }</td>
-							<td>${bvo.boRegdate }</td>
-						</tr>
-					</c:forEach>
-				</c:if>
-				<c:if test="${fn:length(bvoList) <= 0 }">
-					<tr>
-						<td colspan="5">게시글이 없습니다.</td>
-					</tr>
-				</c:if>
-			</table>
-		</div>
+		<iframe id="leftIf" src="https://javajin96.github.io/Mypage/Mypage/WebContent/index.html"></iframe>
 	</div>
 	
 	<div id="rightDiv">
@@ -118,11 +115,47 @@ $( document ).ready(function() {
 			<div id="loginBox">
 				<h4>${loginMember.memName }(${loginMember.memId })님 환영합니다.</h4>
 				<input type="button" value="로그아웃" class="btn btn-primary" id="logoutBtn">
+				<c:if test="${loginMember.memAuth eq 3 }">
+					<input type="button" value="관리자기능" class="btn btn-primary" id="adminBtn">
+				</c:if>
 			</div>
 		</c:if>
+		<div id='calendar'></div>
 	</div>
 	
 	<div id="leftDownDiv">
-	
+		<div id="boadrDiv">
+			<h4 style="display:inline-block;"><a href="${pageContext.request.contextPath }/board/main.do">자유게시판</a></h4>
+			<input type="button" value="글작성하기" class="btn btn-primary" id="newBdBtn">
+			<table class="table table-warning table-bordered table-hover" id="boardTb">
+				<thead class="table table-primary table-bordered table-hover">
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>내용</th>
+						<th>작성자</th>
+						<th>작성일</th>
+					</tr>
+				</thead>
+				<tbody>
+				<c:if test="${fn:length(bvoList) > 0 }">
+					<c:forEach items="${bvoList }" var="bvo">
+						<tr data-boNo="${bvo.boNo }" class="boardTr">
+							<td>${bvo.boNo }</td>
+							<td>${bvo.boTitle }</td>
+							<td>${bvo.boContent }</td>
+							<td>${bvo.boWriter }</td>
+							<td>${bvo.boRegdate }</td>
+						</tr>
+					</c:forEach>
+				</c:if>
+				<c:if test="${fn:length(bvoList) <= 0 }">
+					<tr>
+						<td colspan="5">게시글이 없습니다.</td>
+					</tr>
+				</c:if>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>

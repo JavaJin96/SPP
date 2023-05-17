@@ -32,4 +32,16 @@ public class MainService {
 		mainDao.insertBoard(bvo);
 	}
 	
+	public BoardVO selectBoard(BoardVO bvo) {
+		return mainDao.selectBoard(bvo);
+	}
+	
+	public void updateBoard(BoardVO bvo) {
+		mainDao.updateBoard(bvo);
+	}
+	
+	public void deleteBoard(BoardVO bvo) {
+		mainDao.deleteBoard(bvo);
+	}
+	
 }

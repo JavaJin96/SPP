@@ -12,6 +12,7 @@
 		<put-attribute name="footer" value="/WEB-INF/jsp/layout/Footer.jsp" />
 	</definition>
 	
+	<!-- board layout  -->
 	<definition name="board-layout" template="/WEB-INF/jsp/layout/board_layout_template.jsp">
 		<put-attribute name="header" value="/WEB-INF/jsp/layout/Header.jsp" />
 		<put-attribute name="left" value="/WEB-INF/jsp/layout/Leftmenu.jsp" />
@@ -19,15 +20,42 @@
 		<put-attribute name="footer" value="/WEB-INF/jsp/layout/Footer.jsp" />
 	</definition>
 	
+	<!-- =================main================= -->
+	
 	<definition name="mainPage" extends="standar-layout">
 		<put-attribute name="body" value="/WEB-INF/jsp/main/MainPage.jsp" />
 		<put-attribute name="title" value="메인" />
 	</definition>
 	
-	<definition name="mainBoardPage" extends="board-layout">
-		<put-attribute name="body" value="/WEB-INF/jsp/main/MainBoardPage.jsp" />
-		<put-attribute name="title" value="다운로드 센터" />
+	<!-- =================main================= -->
+	
+	
+	<!-- =================board================= -->
+	
+	<definition name="boardFormPage" extends="board-layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/board/BoardFormPage.jsp" />
+		<put-attribute name="title" value="게시글 등록" />
 	</definition>
+	
+	<definition name="mainBoardPage" extends="board-layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/board/MainBoardPage.jsp" />
+		<put-attribute name="title" value="게시판" />
+	</definition>
+	
+	<definition name="boardDtl" extends="board-layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/board/BoardDtlPage.jsp" />
+		<put-attribute name="title" value="게시판 상세보기" />
+	</definition>
+	
+	<definition name="updateBoardForm" extends="board-layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/board/UpdateBoardForm.jsp" />
+		<put-attribute name="title" value="게시판 수정" />
+	</definition>
+	
+	<!-- =================board================= -->
+	
+	
+	<!-- =================menus================= -->
 	
 	<definition name="dcPage" extends="standar-layout">
 		<put-attribute name="body" value="/WEB-INF/jsp/dc/DcPage.jsp" />
@@ -48,6 +76,18 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/test/TestPage.jsp" />
 		<put-attribute name="title" value="연구소" />
 	</definition>
+	
+	<!-- =================menus================= -->
+	
+	
+	<!-- =================admin================= -->
+	
+	<definition name="adminPage" extends="board-layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/admin/adminPage.jsp" />
+		<put-attribute name="title" value="관리자 기능" />
+	</definition>
+	
+	<!-- =================admin================= -->
 	
 <!-- 	<definition name="mainPage" extends="standar-layout">
 		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />

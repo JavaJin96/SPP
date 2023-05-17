@@ -10,15 +10,60 @@
 		SELECT * FROM MEMBER
 		WHERE MEM_ID LIKE #{memId}
 		AND MEM_PASS LIKE #{memPass}
+		AND MEM_AUTH != 0
 	</select>
 	
 	<select id="mainDAO.selectAllBoard" resultType="SPP.main.BoardVO">
-		SELECT * FROM BOARD
+		SELECT ROWNUM AS RNUM, A.* 
+		FROM(
+			SELECT BO_TITLE, BO_NO, BO_WRITER, BO_CONTENT, BO_REGDATE, BO_TYPE 
+			FROM BOARD 
+			WHERE BO_TYPE = 0
+			ORDER BY BO_REGDATE DESC
+		) A
+		<![CDATA[  
+		WHERE ROWNUM <= 10
+		]]>
+	</select>
+	
+	<select id="mainDAO.selectAllNotiBoard" resultType="SPP.main.BoardVO">
+		SELECT * 
+		FROM(
+			SELECT ROWNUM AS RNUM, BO_TITLE, BO_NO, BO_WRITER, BO_CONTENT, BO_REGDATE, BO_TYPE 
+			FROM BOARD 
+			WHERE BO_TYPE = 3
+			ORDER BY BO_REGDATE DESC
+		)
+		<![CDATA[  
+		WHERE RNUM <= 5
+		]]>
 	</select>
 	
 	<insert id="mainDAO.insertBoard" parameterType="SPP.main.BoardVO">
 		INSERT INTO BOARD VALUES
 		(SEQ_BOARD.NEXTVAL, #{boTitle}, #{boWriter}, #{boContent}, SYSDATE, '0')
 	</insert>
+	
+	<select id="mainDAO.selectBoard" resultType="SPP.main.BoardVO" parameterType="SPP.main.BoardVO">
+		SELECT * FROM BOARD
+		WHERE BO_NO = #{boNo}
+		AND BO_TYPE = #{boType}
+	</select>
+	
+	<update id="mainDAO.updateBoard" parameterType="SPP.main.BoardVO">
+		UPDATE BOARD 
+		SET BO_TITLE = #{boTitle}, 
+		BO_CONTENT = #{boContent},
+		BO_REGDATE = SYSDATE
+		WHERE BO_NO = #{boNo}
+		AND BO_TYPE = #{boType} 
+	</update>
+	
+	<delete id="mainDAO.deleteBoard" parameterType="SPP.main.BoardVO">
+		DELETE 
+		FROM BOARD
+		WHERE BO_NO = #{boNo}
+		AND BO_TYPE = #{boType}
+	</delete>
 	
 </mapper>

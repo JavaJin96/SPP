@@ -32,6 +32,10 @@
 		text-align: center;
 		margin-top: 30px;
 	}
+	#noAuthDiv{
+		margin-top:30px;
+		text-align: center;
+	}
 </style>
 <script>
 	$( document ).ready(function() {
@@ -114,7 +118,9 @@
 			</div>
 		</div>
 	</c:if>
-	<h1> 로그인 이후 접근가능합니다.</h1>
-	<input id="goLogin" class="btn btn-primary" type="button" value="로그인하러 가기" />
+	<div id="noAuthDiv">
+		<h1> 로그인 이후 접근가능합니다.</h1>
+		<input id="goLogin" class="btn btn-primary" type="button" value="로그인하러 가기" />
+	</div>
 	
 </div>

@@ -27,4 +27,18 @@ public class MainDAO extends EgovAbstractMapper{
 		insert("mainDAO.insertBoard", bvo);
 	}
 	
+	public BoardVO selectBoard(BoardVO bvo) {
+		return selectOne("mainDAO.selectBoard", bvo);
+	}
+	
+	public void updateBoard(BoardVO bvo) {
+		update("mainDAO.updateBoard" , bvo);
+	}
+	
+	public void deleteBoard(BoardVO bvo) {
+		delete("mainDAO.deleteBoard" , bvo);
+	}
+	
+	
+	
 }

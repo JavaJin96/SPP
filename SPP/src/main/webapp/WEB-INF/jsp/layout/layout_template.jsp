@@ -35,6 +35,9 @@
 <!-- CK editor 스크립트 -->
 <script src="https://cdn.ckeditor.com/ckeditor5/37.0.1/classic/ckeditor.js"></script>
 
+<!-- FullCallendar API  -->
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
+
 </head>
 <style>
 	#header{

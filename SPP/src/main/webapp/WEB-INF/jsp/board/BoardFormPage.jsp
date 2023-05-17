@@ -45,6 +45,8 @@ $( document ).ready(function() {
 	
 	if(${loginMember.memName ne null}){
 		$("#writer").val("${loginMember.memName}(${loginMember.memId})");
+	}else{
+		$("#writer").val("익명");
 	}
 	
 });
@@ -53,7 +55,7 @@ $( document ).ready(function() {
 
 <div id="main_Div">
 	<div id="boardDiv">
-		<form action="/SPP/main/submitBoard.do" method="post">
+		<form action="/SPP/board/insertBoard.do" method="post">
 			<input type="text" placeholder="제목" class="form-control" name="boardTitle" required="required"/>
 			<input type="text" id="writer" value="작성자" class="form-control" name="boardWriter" readonly="readonly" required="required"/>
 			<input type="text" id="regDate" value="작성일" class="form-control" name="boardRegdate" readonly="readonly" required="required"/>

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -67,14 +68,14 @@ public class MainController {
 		return mav;
 	}
 	
-	@RequestMapping("main/newBoard.do")
+	@RequestMapping("board/boardForm.do")
 	public ModelAndView newBoard() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("mainBoardPage");
+		mav.setViewName("boardFormPage");
 		return mav;
 	}
 	
-	@PostMapping("main/submitBoard.do")
+	@PostMapping("board/insertBoard.do")
 	public ModelAndView insertBoard(HttpServletRequest req, HttpServletResponse resp) {
 		ModelAndView mav = new ModelAndView();
 		
@@ -85,8 +86,72 @@ public class MainController {
 		
 		mainService.insertBoard(bvo);
 		
-		mav.setViewName("mainPage");
+		mav.setViewName("redirect:/main/main.do");
 		return mav;
 	}
+	
+	@RequestMapping("board/main.do")
+	public ModelAndView goBoard() {
+		ModelAndView mav = new ModelAndView();
+		
+		List<BoardVO> bvoList = (List<BoardVO>) mainService.selectAllBoard();
+		
+		mav.addObject("bvoList", bvoList);
+		mav.setViewName("mainBoardPage");
+		return mav;
+	}
+	
+	@RequestMapping("board/boardDtl.do")
+	public ModelAndView dtlBoard(HttpServletRequest req) {
+		ModelAndView mav = new ModelAndView();
+		
+		BoardVO bvo = new BoardVO();
+		bvo.setBoNo(req.getParameter("boNo"));
+		bvo.setBoType("0");
+		bvo = mainService.selectBoard(bvo);
+		
+		mav.addObject("Board", bvo);
+		mav.setViewName("boardDtl");
+		return mav;
+	}
+	
+	@PostMapping("board/updateBoardForm.do")
+	public ModelAndView updateBoardForm(HttpServletRequest req)  {
+		ModelAndView mav = new ModelAndView();
+		
+		BoardVO bvo = new BoardVO();
+		bvo.setBoNo(req.getParameter("boNo"));
+		bvo.setBoType("0");
+		bvo = mainService.selectBoard(bvo);
+		
+		mav.addObject("Board", bvo);
+		mav.setViewName("updateBoardForm");
+		return mav;
+	}
+	
+	@PostMapping("board/updateBoard.do")
+	public ModelAndView updateBoard(HttpServletRequest req, @ModelAttribute("board")BoardVO bvo)  {
+		ModelAndView mav = new ModelAndView();
+		
+		bvo.setBoType("0");
+		mainService.updateBoard(bvo);
+		mav.setViewName("redirect:/board/boardDtl.do?boNo="+bvo.getBoNo());
+		
+		return mav;
+	}
+	
+	@PostMapping("board/deleteBoard.do")
+	public ModelAndView deleteBoard(HttpServletRequest req)  {
+		ModelAndView mav = new ModelAndView();
+		
+		BoardVO bvo = new BoardVO();
+		bvo.setBoNo(req.getParameter("boNo"));
+		bvo.setBoType("0");
+		
+		mainService.deleteBoard(bvo);
+		mav.setViewName("redirect:/board/main.do");
+		return mav;
+	}
+	
 	
 }
