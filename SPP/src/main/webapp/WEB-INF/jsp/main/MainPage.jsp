@@ -7,7 +7,7 @@
 
 <style>
 	#main_Div{
-		font-size:1.8em;
+		font-size:1.4em;
 		width: 100%;
 		height: 1500px;
 	}
@@ -53,10 +53,31 @@
 	}
 	#loginBox{
 		height:300px;
+		border : 1px solid rgb(148, 148, 184);
+		border-radius: 1%;
+		margin-bottom: 20px;
 	}
 	#calendar{
 		height:400px;
 		font-size: 0.4em;
+		border : 1px solid rgb(148, 148, 184);
+		border-radius: 1%;
+	}
+	.img{
+	    width: 15%;
+	    height: 60px;
+	    margin-right: 30px;
+        margin-left: 30px;
+	}
+	#homePageInfoDiv{
+		margin-top : 40px;
+		padding-left : 30px;
+		border : 1px solid rgb(148, 148, 184);
+		border-radius: 1%;
+	}
+	#comeCountChartDiv{
+		width:100%;
+		height:500px;
 	}
 </style>
 <script>
@@ -68,6 +89,48 @@ document.addEventListener('DOMContentLoaded', function() {
 	calendar.render();
 });
 $( document ).ready(function() {
+	
+	am4core.ready(function() {
+
+		// Themes begin
+		am4core.useTheme(am4themes_animated);
+		// Themes end
+
+		// Create chart instance
+		var chart = am4core.create("comeCountChartDiv", am4charts.XYChart);
+
+		// Add data
+		chart.data = ${chartJsonData};
+
+		// Create axes
+
+		var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+		categoryAxis.dataFields.category = "pvDate";
+		categoryAxis.renderer.grid.template.location = 0;
+		categoryAxis.renderer.minGridDistance = 30;
+
+		categoryAxis.renderer.labels.template.adapter.add("dy", function(dy, target) {
+		  if (target.dataItem && target.dataItem.index & 2 == 2) {
+		    return dy + 25;
+		  }
+		  return dy;
+		});
+
+		var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+		// Create series
+		var series = chart.series.push(new am4charts.ColumnSeries());
+		series.dataFields.valueY = "pvIp";
+		series.dataFields.categoryX = "pvDate";
+		series.name = "pvIp";
+		series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+		series.columns.template.fillOpacity = .8;
+
+		var columnTemplate = series.columns.template;
+		columnTemplate.strokeWidth = 2;
+		columnTemplate.strokeOpacity = 1;
+
+		}); // end am4core.ready()
 	
 	$("#loginBtn").on("click", function(){
 		$("#loginForm").submit();
@@ -88,6 +151,10 @@ $( document ).ready(function() {
 	
 	$("#adminBtn").on("click", function(){
 		location.href = "${pageContext.request.contextPath}/admin/adminMain.do";
+	});
+	
+	$("#joinBtn").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/main/joinForm.do";
 	});
 	
 });
@@ -118,9 +185,24 @@ $( document ).ready(function() {
 				<c:if test="${loginMember.memAuth eq 3 }">
 					<input type="button" value="관리자기능" class="btn btn-primary" id="adminBtn">
 				</c:if>
+				<br><br>
+				<img alt="" src="${pageContext.request.contextPath }/images/icons/heart.png" class="img">
+				<img alt="" src="${pageContext.request.contextPath }/images/icons/location.png" class="img">
+				<img alt="" src="${pageContext.request.contextPath }/images/icons/mailbox.png" class="img">
+				<br><br>
+				<img alt="" src="${pageContext.request.contextPath }/images/icons/menu.png" class="img">
+				<img alt="" src="${pageContext.request.contextPath }/images/icons/search.png" class="img">
+				<img alt="" src="${pageContext.request.contextPath }/images/icons/setting.png" class="img">
 			</div>
 		</c:if>
 		<div id='calendar'></div>
+		<div id="homePageInfoDiv">
+			<h6>총 방문자수 : ${totCnt }</h6>
+			<h6>오늘 방문자수 : ${todayCnt }</h6>
+			<div id="comeCountChartDiv">
+				임시지만 차트 들어갈 곳.
+			</div>
+		</div>
 	</div>
 	
 	<div id="leftDownDiv">

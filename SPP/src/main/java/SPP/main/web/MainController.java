@@ -7,15 +7,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import SPP.admin.service.AdminService;
 import SPP.main.BoardVO;
 import SPP.main.MemberVO;
 import SPP.main.service.MainService;
+import SPP.main.service.impl.MainDAO;
 
 @Controller
 public class MainController {
@@ -23,12 +27,22 @@ public class MainController {
 	@Resource(name = "mainService")
 	MainService mainService;
 	
+	@Resource(name = "adminService")
+	AdminService adminService;
+	
 	@RequestMapping("main/main.do")
 	public ModelAndView goMain() {
 		ModelAndView mav = new ModelAndView();
 		
 		List<BoardVO> bvoList = (List<BoardVO>) mainService.selectAllBoard();
+		int todayCnt = adminService.selectTodayCnt();
+		int totCnt = adminService.selectTotCnt();
 		
+		String chartJsonData = adminService.selectChartData();
+		System.out.println(chartJsonData);
+		mav.addObject("chartJsonData", chartJsonData);
+		mav.addObject("todayCnt", todayCnt);
+		mav.addObject("totCnt", totCnt);
 		mav.addObject("bvoList", bvoList);
 		mav.setViewName("mainPage");
 		return mav;
@@ -151,6 +165,45 @@ public class MainController {
 		mainService.deleteBoard(bvo);
 		mav.setViewName("redirect:/board/main.do");
 		return mav;
+	}
+	
+	@RequestMapping("main/joinForm.do")
+	public ModelAndView joinForm() {
+		ModelAndView mav = new ModelAndView();
+		
+		MemberVO mvo = new MemberVO();
+		
+		mav.addObject("member", mvo);
+		mav.setViewName("joinFormPage");
+		return mav;
+	}
+	
+	@PostMapping("main/join.do")
+	public ModelAndView goJoin(HttpServletRequest req, @ModelAttribute("member")MemberVO mvo) {
+		ModelAndView mav = new ModelAndView();
+		
+		mainService.joinMember(mvo);
+		
+		mav.setViewName("redirect:/main/main.do");
+		return mav;
+	}
+	
+	@Async
+	@ResponseBody
+	@PostMapping("main/idValidation.do")
+	public String idValidation(HttpServletRequest req) {
+		MemberVO mvo = new MemberVO();
+		mvo.setMemId(req.getParameter("idValue"));
+		MemberVO resMvo = mainService.validationMember(mvo);
+		String res = "";
+		System.out.println(resMvo);
+		if(resMvo == null) {
+			res = "{\"res\" : \"사용가능한 아이디입니다.\"}";
+		}else if(resMvo != null){
+			res = "{\"res\" : \"중복된 아이디입니다.\"}";
+		}
+		
+		return res;
 	}
 	
 	

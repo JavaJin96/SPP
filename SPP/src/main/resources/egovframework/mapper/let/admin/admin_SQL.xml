@@ -6,6 +6,10 @@
 		SELECT * FROM MEMBER WHERE MEM_AUTH = 0
 	</select>
 	
+	<select id="adminDAO.selectAuthMember" resultType="SPP.main.MemberVO">
+		SELECT * FROM MEMBER WHERE MEM_AUTH != 0
+	</select>
+	
 	<update id="adminDAO.confirmMember" parameterType="SPP.main.MemberVO">
 		UPDATE MEMBER 
 		SET MEM_AUTH = #{memAuth}
@@ -18,4 +22,31 @@
 		WHERE MEM_ID = #{memId}
 	</delete>
 	
+	<update id="adminDAO.updatePageView" parameterType="SPP.admin.PageViewVO">
+		MERGE INTO PAGEVIEW
+		USING dual
+		ON (PV_DATE = TO_CHAR(SYSDATE) AND PV_IP = #{pvIp})
+		WHEN NOT MATCHED THEN
+			INSERT (PV_DATE, PV_CNT, PV_IP)
+			VALUES (TO_CHAR(SYSDATE), '1', #{pvIp})
+		WHEN MATCHED THEN
+			UPDATE SET
+			PV_CNT = PV_CNT+1
+	</update>
+	
+	<select id="adminDAO.selectTodayCnt" resultType="int">
+		SELECT COUNT(PV_IP) FROM PAGEVIEW 
+		WHERE PV_DATE = TO_CHAR(SYSDATE)
+	</select>
+	
+	<select id="adminDAO.selectTotCnt" resultType="int">
+		SELECT COUNT(PV_IP) FROM PAGEVIEW
+	</select>
+	
+	<select id="adminDAO.selectChartData" resultType="SPP.admin.PageViewVO">
+		SELECT COUNT(PV_IP)AS PV_IP, PV_DATE 
+		FROM PAGEVIEW p 
+		GROUP BY PV_DATE
+		ORDER BY 1
+	</select>
 </mapper>

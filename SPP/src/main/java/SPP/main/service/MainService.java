@@ -44,4 +44,12 @@ public class MainService {
 		mainDao.deleteBoard(bvo);
 	}
 	
+	public MemberVO validationMember(MemberVO mvo) {
+		return mainDao.validationMember(mvo);
+	}
+	
+	public void joinMember(MemberVO mvo) {
+		mainDao.joinMember(mvo);
+	}
+	
 }

@@ -66,4 +66,18 @@
 		AND BO_TYPE = #{boType}
 	</delete>
 	
+	<select id="mainDAO.validationMember" parameterType="SPP.main.MemberVO" resultType="SPP.main.MemberVO">
+		SELECT * FROM MEMBER
+		WHERE MEM_AUTH != 0
+		AND MEM_ID = #{memId}
+	</select>
+	
+	<insert id="mainDAO.joinMember" parameterType="SPP.main.MemberVO">
+		INSERT INTO 
+		MEMBER (MEM_ID, MEM_PASS, MEM_NAME, MEM_MAIL) 
+		VALUES(
+			#{memId}, #{memPass}, #{memName}, #{memMail}
+		)
+	</insert>
+	
 </mapper>

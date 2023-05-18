@@ -43,7 +43,15 @@
 		    <bean class="egovframework.com.cmm.interceptor.AuthenticInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
-
+	
+	<!-- Interceptors -->
+	<mvc:interceptors>
+	         <mvc:interceptor>
+	                  <mvc:mapping path="/**" /> 
+	                  <bean class="SPP.admin.CountingFilter" />
+	         </mvc:interceptor>
+	</mvc:interceptors>
+	
     <!-- Annotation 을 사용하지 않는 경우에 대한 MVC 처리 설정 -->
     <mvc:view-controller path="/cmmn/validator.do" view-name="cmmn/validator"/>
     

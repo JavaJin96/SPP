@@ -20,11 +20,24 @@
 		<put-attribute name="footer" value="/WEB-INF/jsp/layout/Footer.jsp" />
 	</definition>
 	
+	<!-- board layout  -->
+	<definition name="form-layout" template="/WEB-INF/jsp/layout/JoinForm_layout.template.jsp">
+		<put-attribute name="header" value="/WEB-INF/jsp/layout/Header.jsp" />
+		<put-attribute name="left" value="/WEB-INF/jsp/layout/Leftmenu.jsp" />
+		<put-attribute name="topnav" value="/WEB-INF/jsp/layout/Topnav.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/layout/Footer.jsp" />
+	</definition>
+	
 	<!-- =================main================= -->
 	
 	<definition name="mainPage" extends="standar-layout">
 		<put-attribute name="body" value="/WEB-INF/jsp/main/MainPage.jsp" />
 		<put-attribute name="title" value="메인" />
+	</definition>
+	
+	<definition name="joinFormPage" extends="form-layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/main/JoinForm.jsp" />
+		<put-attribute name="title" value="회원가입" />
 	</definition>
 	
 	<!-- =================main================= -->

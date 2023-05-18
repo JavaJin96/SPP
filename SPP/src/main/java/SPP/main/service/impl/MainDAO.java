@@ -39,6 +39,14 @@ public class MainDAO extends EgovAbstractMapper{
 		delete("mainDAO.deleteBoard" , bvo);
 	}
 	
+	public MemberVO validationMember(MemberVO mvo) {
+		return selectOne("mainDAO.validationMember", mvo);
+	}
+	
+	public void joinMember(MemberVO mvo) {
+		insert("mainDAO.joinMember", mvo);
+	}
+	
 	
 	
 }
