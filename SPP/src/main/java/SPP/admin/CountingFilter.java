@@ -17,7 +17,7 @@ public class CountingFilter implements HandlerInterceptor{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		PageViewVO pvvo = new PageViewVO();
-		pvvo.setPvIp(request.getLocalAddr());
+		pvvo.setPvIp(request.getRemoteAddr());
 		adminService.updatePageView(pvvo);
 		
 		return HandlerInterceptor.super.preHandle(request, response, handler);
