@@ -11,6 +11,8 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.config.PropertiesFactoryBean;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -19,7 +21,6 @@ import SPP.dc.FileVO;
 
 @Service
 public class DcService {
-	
 	
 	public ArrayList<FileVO> fileSelect(){
 		//String filePath = "C:/Users/park/git/SPP/SPP/src/main/download";

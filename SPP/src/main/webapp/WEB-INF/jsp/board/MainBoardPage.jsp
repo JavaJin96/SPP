@@ -18,6 +18,12 @@
 		float:right;
 		margin-bottom: 10px;
 	}
+	#boardDiv th{
+		color : white;
+		height: 50px;
+		font-size: 0.8em;
+		font-weight: bold;
+	}
 </style>
 <script>
 $( document ).ready(function() {
@@ -40,7 +46,7 @@ $( document ).ready(function() {
 		<h4 style="display:inline-block;"><a href="${pageContext.request.contextPath }/board/main.do">자유게시판</a></h4>
 		<input type="button" value="글작성하기" class="btn btn-primary" id="newBdBtn">
 			<table class="table table-warning table-bordered table-hover" id="boardTb">
-				<thead class="table table-primary table-bordered table-hover">
+				<thead class="table table-bordered table-hover" style="background-color:rgb(44,62,80); color:white;">
 					<tr>
 						<th>번호</th>
 						<th>제목</th>

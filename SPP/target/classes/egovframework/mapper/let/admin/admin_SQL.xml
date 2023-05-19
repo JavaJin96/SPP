@@ -44,9 +44,11 @@
 	</select>
 	
 	<select id="adminDAO.selectChartData" resultType="SPP.admin.PageViewVO">
-		SELECT COUNT(PV_IP)AS PV_IP, PV_DATE 
+		SELECT 
+			COUNT(PV_IP)AS PV_IP, 
+			TO_CHAR(PV_DATE, 'MM')||'월'||TO_CHAR(PV_DATE, 'DD')||'일' AS PV_DATE 
 		FROM PAGEVIEW p 
 		GROUP BY PV_DATE
-		ORDER BY 1
+		ORDER BY 2
 	</select>
 </mapper>

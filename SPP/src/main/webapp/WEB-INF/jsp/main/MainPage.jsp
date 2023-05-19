@@ -10,11 +10,13 @@
 		font-size:1.4em;
 		width: 100%;
 		height: 1500px;
+		padding-top: 25px;
 	}
 	#leftTopDiv{
 		display:inline-block;
 		width:70%;
 		height:750px;
+		margin-bottom: 30px;
 	}
 	#leftDownDiv{
 		display:inline-block;
@@ -28,7 +30,6 @@
 		height:1500px;
 	}
 	#loginBox,#boadrDiv{
-		margin-top: 50px;
 		width:100%;
 		height:400px;
 		text-align: center;
@@ -50,18 +51,26 @@
 	#leftIf{
 		width:100%;
 		height:750px;
+		border : 1px solid rgb(224, 224, 235);
+		border-radius: 3%;
+		overflow: hidden;
 	}
 	#loginBox{
+		padding-top : 40px;
 		height:300px;
-		border : 1px solid rgb(148, 148, 184);
-		border-radius: 1%;
+		border : 1px solid rgb(224, 224, 235);
+		border-radius: 3%;
 		margin-bottom: 20px;
 	}
+	#loginBox input[type=text], #loginBox input[type=password]{
+		width:200px;
+		display: inline-block;
+	}
 	#calendar{
-		height:400px;
+		height:390px;
 		font-size: 0.4em;
-		border : 1px solid rgb(148, 148, 184);
-		border-radius: 1%;
+		border : 1px solid rgb(224, 224, 235);
+		border-radius: 3%;
 	}
 	.img{
 	    width: 15%;
@@ -70,16 +79,31 @@
         margin-left: 30px;
 	}
 	#homePageInfoDiv{
-		margin-top : 40px;
+		margin-top : 69px;
 		padding-left : 30px;
-		border : 1px solid rgb(148, 148, 184);
-		border-radius: 1%;
+		border : 1px solid rgb(224, 224, 235);
+		border-radius: 3%;
 	}
 	#comeCountChartDiv{
 		width:100%;
 		height:500px;
+		font-size: 0.8em;
 	}
-</style>
+	#boadrDiv{
+		padding-top:30px;
+		padding-left:10px;
+		padding-right:10px;
+		border : 1px solid rgb(224, 224, 235);
+		border-radius: 3%;
+		height : 558px;
+	}
+	#boadrDiv th{
+		color : white;
+		height: 50px;
+		font-size: 0.8em;
+		font-weight: bold;
+	}
+</style> 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 	var calendarEl = document.getElementById('calendar');
@@ -189,10 +213,10 @@ $( document ).ready(function() {
 				<img alt="" src="${pageContext.request.contextPath }/images/icons/heart.png" class="img">
 				<img alt="" src="${pageContext.request.contextPath }/images/icons/location.png" class="img">
 				<img alt="" src="${pageContext.request.contextPath }/images/icons/mailbox.png" class="img">
-				<br><br>
+<%-- 				<br><br>
 				<img alt="" src="${pageContext.request.contextPath }/images/icons/menu.png" class="img">
 				<img alt="" src="${pageContext.request.contextPath }/images/icons/search.png" class="img">
-				<img alt="" src="${pageContext.request.contextPath }/images/icons/setting.png" class="img">
+				<img alt="" src="${pageContext.request.contextPath }/images/icons/setting.png" class="img"> --%>
 			</div>
 		</c:if>
 		<div id='calendar'></div>
@@ -210,7 +234,7 @@ $( document ).ready(function() {
 			<h4 style="display:inline-block;"><a href="${pageContext.request.contextPath }/board/main.do">자유게시판</a></h4>
 			<input type="button" value="글작성하기" class="btn btn-primary" id="newBdBtn">
 			<table class="table table-warning table-bordered table-hover" id="boardTb">
-				<thead class="table table-primary table-bordered table-hover">
+				<thead class="table table-bordered table-hover" style="background-color:rgb(44,62,80); color:white;">
 					<tr>
 						<th>번호</th>
 						<th>제목</th>
