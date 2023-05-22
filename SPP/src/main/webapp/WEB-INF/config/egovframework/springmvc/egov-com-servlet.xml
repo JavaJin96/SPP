@@ -72,5 +72,20 @@
 	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 	    <property name="definitions" value="/WEB-INF/config/egovframework/springmvc/tiles.xml" />
 	</bean>
+	
+	<!--  For Pagination Tag     
+  <bean id="imageRenderer" class="com.myProject.training.egovframework.paginationinfo.ImagePaginationRenderer"/>
+        
+  <bean id="textRenderer" class="com.myProject.training.egovframework.paginationinfo.DefaultPaginationRenderer"/>
+        
+  <bean id="paginationManager" class="com.myProject.training.egovframework.paginationinfo.DefaultPaginationManager">
+      <property name="rendererType">
+          <map>
+              <entry key="image" value-ref="imageRenderer"/>
+              <entry key="text" value-ref="textRenderer"/>
+          </map>
+      </property>
+  </bean> -->
+	
 
 </beans>

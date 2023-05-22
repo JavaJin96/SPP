@@ -43,6 +43,18 @@
 	<!-- =================main================= -->
 	
 	
+	
+	<!-- =================post================= -->
+	
+	<definition name="postMainPage" extends="standar-layout">
+		<put-attribute name="body" value="/WEB-INF/jsp/post/postMainPage.jsp" />
+		<put-attribute name="title" value="관리자 기능" />
+	</definition>
+	
+	<!-- =================post================= -->
+	
+	
+	
 	<!-- =================board================= -->
 	
 	<definition name="boardFormPage" extends="board-layout">

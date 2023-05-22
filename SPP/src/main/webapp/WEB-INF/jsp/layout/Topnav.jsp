@@ -27,10 +27,11 @@
 </style>
 <div id="topnav_div">
 	<ul>
-		<li><a href="#LINK" onclick="location.href='/SPP/p1/main.do'" >p1</a></li>
-	    <li><a href="#LINK" onclick="location.href='/SPP/p2/main.do'" >p2</a></li>
-	    <li><a href="#LINK" onclick="location.href='/SPP/test/main.do'" >test</a></li>
-	    <li><a href="#LINK" onclick="location.href='/SPP/dc/main.do'" >dc</a></li>
+		<li><a href="#LINK" onclick="location.href='/SPP/post/main.do'" >POST</a></li>
+		<li><a href="#LINK" onclick="location.href='/SPP/p1/main.do'" >임시1</a></li>
+	    <li><a href="#LINK" onclick="location.href='/SPP/p2/main.do'" >임시2</a></li>
+	    <li><a href="#LINK" onclick="location.href='/SPP/test/main.do'" >연구소</a></li>
+	    <li><a href="#LINK" onclick="location.href='/SPP/dc/main.do'" >다운로드</a></li>
 	</ul>
 </div>
 

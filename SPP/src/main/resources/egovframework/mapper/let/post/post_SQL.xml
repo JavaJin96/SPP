@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="postDAO">
+	
+	<select id="postDAO.selectAllPost" parameterType="SPP.post.PostVO" resultType="SPP.post.PostVO">
+		SELECT AA.* 
+		FROM(
+			SELECT 
+				ROWNUM RNUM,
+				A.PO_NO,
+				A.PO_TITLE,
+				A.PO_WRITER,
+				A.PO_CONTENT,
+				A.PO_REGDATE,
+				A.PO_TYPE,
+				A.PO_MIMG,
+				A.PO_ATTFILE,
+				B.PO_TYPE_NAME
+			FROM POST A INNER JOIN POTYPE B
+			ON A.PO_TYPE = B.PO_TYPE_CODE
+			WHERE PO_TYPE = #{poType}
+			<if test="poTitle != null and poContent != null">
+				AND PO_TITLE LIKE #{poTitle}
+				OR PO_CONTENT LIKE #{poContent}
+			</if>
+			<if test="poTitle != null">
+				AND PO_TITLE LIKE #{poTitle}
+			</if>
+			<if test="poContent != null">
+				AND PO_CONTENT LIKE #{poContent}
+			</if>
+			ORDER BY PO_REGDATE DESC
+		) AA
+		<![CDATA[  
+		WHERE #{startNum} < RNUM 
+		AND RNUM <= #{endNum}
+		]]>
+	</select>
+	
+	<select id="postDAO.selectAllPostCnt" parameterType="SPP.post.PostVO" resultType="int">
+		SELECT COUNT(*) 
+		FROM POST
+		WHERE PO_TYPE = #{poType}
+		<if test="poBoth != null">
+			AND PO_TITLE LIKE #{poBoth}
+			OR PO_CONTENT LIKE #{poBoth}
+		</if>
+		<if test="poTitle != null">
+			AND PO_TITLE LIKE #{poTitle}
+		</if>
+		<if test="poContent != null">
+			AND PO_CONTENT LIKE #{poContent}
+		</if>
+	</select>
+	
+	<select id="postDAO.selectPost" parameterType="SPP.post.PostVO" resultType="SPP.post.PostVO">
+		SELECT * FROM POST
+		WHERE PO_NO = #{poNo}	
+	</select>
+	
+	<update id="postDAO.updatePost" parameterType="SPP.post.PostVO">
+		UPDATE POST
+		SET 
+			PO_TITLE = #{poTitle},
+			PO_CONTENT = #{poContent},
+			PO_REGDATE = SYSDATE,
+			PO_TYPE = #{poType},
+			PO_MIMG = #{poMimg},
+			PO_ATTFILE = #{poAttfile}
+		WHERE 
+			PO_NO = #{poNo}
+	</update>
+	
+	<insert id="postDAO.insertPost" parameterType="SPP.post.PostVO">
+		ISNERT INTO POST (PO_NO, PO_TITLE, PO_WRITER, PO_CONTENT, PO_TYPE, PO_MIMG, PO_ATTFILE)
+		VALUES(
+			SEQ_POST.NEXTVAL, #{poTitle}, #{poWriter}, #{poContent}, #{poType}, #{poMimg}, #{poAttfile}
+		)
+	</insert>
+	
+	<delete id="postDAO.deletePost" parameterType="SPP.post.PostVO">
+		DELETE FROM POST
+		WHERE PO_NO = #{poNo}	
+	</delete>
+	
+	<select id="postDAO.selectPostMenu" resultType="SPP.post.PostVO">
+		SELECT * FROM POTYPE
+	</select>
+	
+	<insert id="postDAO.insertPostMenu" parameterType="SPP.post.PostVO">
+		INSERT INTO POTYPE
+		VALUES (
+			#{poTypeCode}, #{poTypeName}
+		)
+	</insert>
+	
+	<update id="postDAO.updatePostMenu" parameterType="SPP.post.PostVO">
+		UPDATE POTYPE
+		SET 
+		PO_TYPE_NAME = #{poTypeName}
+		WHERE PO_TYPE_CODE = #{poTypeCode}
+	</update>
+	
+	<delete id="postDAO.deletePostMenu" parameterType="SPP.post.PostVO">
+		DELETE FROM POTYPE
+		WHERE PO_TYPE_CODE = #{poTypeCode}	
+	</delete>
+	
+</mapper>

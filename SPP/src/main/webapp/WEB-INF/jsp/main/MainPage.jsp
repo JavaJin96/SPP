@@ -41,7 +41,7 @@
 		display: inline-block;
 		width: 150px;
 	}
-	#loginForm input[type=button]{
+	#loginForm input[type=button],#loginForm input[type=submit]{
 		margin-top: 30px;
 	}
 	#newBdBtn{
@@ -177,9 +177,9 @@ $( document ).ready(function() {
 		location.href = "${pageContext.request.contextPath}/admin/adminMain.do";
 	});
 	
-	$("#joinBtn").on("click", function(){
+/* 	$("#joinBtn").on("click", function(){
 		location.href = "${pageContext.request.contextPath}/main/joinForm.do";
-	});
+	}); */
 	
 });
 		
@@ -198,7 +198,7 @@ $( document ).ready(function() {
 					<span class="loginIpb">아이디</span><input name="loginId" class="form-control" type="text" />
 					<span class="loginIpb">비밀번호</span><input name="loginPass" class="form-control" type="password" />
 					<input id="joinBtn" type="button" class="btn btn-primary" value="회원가입">
-					<input id="loginBtn" type="button" class="btn btn-primary" value="로그인">
+					<input id="loginBtn" type="submit" class="btn btn-primary" value="로그인">
 				</form>
 			</div>
 		</c:if>
