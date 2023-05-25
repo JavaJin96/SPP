@@ -50,4 +50,12 @@ public class PostDAO extends EgovAbstractMapper{
 		delete("postDAO.deletePostMenu", pvo);
 	}
 	
+	public void deleteMimgFile(PostVO pvo) {
+		update("postDAO.deleteMimgFile", pvo);
+	}
+	
+	public void deleteAttFile(PostVO pvo) {
+		update("postDAO.deleteAttFile", pvo);
+	}
+	
 }

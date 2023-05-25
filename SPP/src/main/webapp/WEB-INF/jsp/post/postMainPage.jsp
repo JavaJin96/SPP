@@ -51,7 +51,7 @@
 		width:25%;
 		height:200px;
 		
-		border:1px solid green;
+		border-right:1px solid black;
 	}
 	.contentDiv{
 		display:inline-block;
@@ -59,6 +59,7 @@
 		width:73.9%;
 		height:200px;
 		text-align: center;
+		padding-left: 20px;
 		
 		/*  border:1px solid red; */
 	}
@@ -110,6 +111,27 @@
 		border : 1px solid rgb(224, 224, 235);
 		border-radius: 20px;
 	}
+	.img{
+		width:100%;
+		height:200px;
+	}
+	.titleSpan{
+		display: inline-block;
+		float:left;
+		font-weight: bold;
+	}
+	.typeSpan{
+		display: inline-block;
+		float:left;
+	}
+	.dateSpan{
+		display: inline-block;
+		float:right;
+		font-size: 0.7em;
+	}
+	.menuAtag{
+		font-weight: bold;
+	}
 </style>
 
 <script>
@@ -142,13 +164,18 @@ function linkPage(pageNo){
 			<c:forEach items="${postList }" var="post">
 			<div class="postDiv" data-pono="${post.poNo }">
 				<div class="imgDiv">
-				
+					<c:if test="${post.poMimg eq null }">
+						<img alt="test" src="${pageContext.request.contextPath }/images/icons/noimage.png" class="img">
+					</c:if>
+					<c:if test="${post.poMimg ne null }">
+						<img alt="test" src="${pageContext.request.contextPath }/postImg/${post.poMimg}" class="img">
+					</c:if>
 				</div>
 				<div class="contentDiv" >
-					<h3 data-pono="${post.poNo }">${post.poTitle }</h3> 
-					<h4>/ ${post.poTypeName }</h4>
-					<h4>/ ${post.poRegdate }</h4>
-					<hr style="display: block;">
+					<span class="typeSpan">    [${post.poTypeName }]</span>
+					<span class="titleSpan">${post.poTitle }</span>
+					<span class="dateSpan">${post.poRegdate }</span>
+					<br>
 					<hr style="display: block;">
 					<h5>${post.poContent }</h5>
 				</div>
@@ -183,7 +210,8 @@ function linkPage(pageNo){
 		</div>
 		<div id="menuDiv">
 			<c:forEach items="${postMenus }" var="menu">
-				<h2>${menu.poTypeName }</h2>
+				<a class="menuAtag">${menu.poTypeName }></a>
+				<br>
 			</c:forEach>
 		</div>
 	</div>
