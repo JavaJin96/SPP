@@ -67,6 +67,10 @@ public class PostService {
 		postDao.deletePostMenu(pvo);
 	}
 	
+	public void deletePostMenuInPost(PostVO pvo) {
+		postDao.deletePostMenuInPost(pvo);
+	}
+	
 	public void deleteMimgFile(PostVO pvo) {
 		postDao.deleteMimgFile(pvo);
 	}
@@ -77,8 +81,8 @@ public class PostService {
 	
 	/* File I/O 관련 Service 로직 */
 	public ArrayList<FileVO> fileSelect(){
-		String filePath = "C:/Users/park/git/SPP/SPP/src/main/postFile";
-		//String filePath = "/var/lib/tomcat9/webapps/SPP/postFile";
+		//String filePath = "C:/Users/park/git/SPP/SPP/src/main/postFile";
+		String filePath = "/var/lib/tomcat9/webapps/SPP/postFile";
 		File file = new File(filePath);
 		File fileArr [] = file.listFiles();
 		ArrayList<FileVO> fileVoList = new ArrayList<FileVO>();
@@ -97,11 +101,11 @@ public class PostService {
 		
 		String filePath = "";
 		if(fileType.equals("attFile")) {
-			filePath = "C:/Users/park/git/SPP/SPP/src/main/webapp/postFile/";
-			//filePath = "/var/lib/tomcat9/webapps/SPP/postFile/";
+			//filePath = "C:/Users/park/git/SPP/SPP/src/main/webapp/postFile/";
+			filePath = "/var/lib/tomcat9/webapps/SPP/postFile/";
 		}else if(fileType.equals("mImg")) {
-			filePath = "C:/Users/park/git/SPP/SPP/src/main/webapp/postImg/";
-			//filePath = "/var/lib/tomcat9/webapps/SPP/postImg/";
+			//filePath = "C:/Users/park/git/SPP/SPP/src/main/webapp/postImg/";
+			filePath = "/var/lib/tomcat9/webapps/SPP/postImg/";
 		}
 		
 		File file = new File(filePath+mf.getOriginalFilename());
@@ -122,11 +126,11 @@ public class PostService {
 	public void fileDownload(String fileName, String fileType, HttpServletResponse resp) throws IOException {
 		String path = "";
 		if(fileType.equals("postFile")) {
-			path = "C:/Users/park/git/SPP/SPP/src/main/webapp/postFile/";
-			//path = "/var/lib/tomcat9/webapps/SPP/postFile/";
+			//path = "C:/Users/park/git/SPP/SPP/src/main/webapp/postFile/";
+			path = "/var/lib/tomcat9/webapps/SPP/postFile/";
 		}else if(fileType.equals("postImg")) {
-			path = "C:/Users/park/git/SPP/SPP/src/main/webapp/postImg/";
-			//path = "/var/lib/tomcat9/webapps/SPP/postImg/";
+			//path = "C:/Users/park/git/SPP/SPP/src/main/webapp/postImg/";
+			path = "/var/lib/tomcat9/webapps/SPP/postImg/";
 		}
 		String filePath = path + fileName;
 		File file = new File(filePath);
@@ -154,11 +158,11 @@ public class PostService {
 	public String fileDelete(String fileName, String fileType) {
 		String path = "";
 		if(fileType.equals("postImg")) {
-			path = "C:/Users/park/git/SPP/SPP/src/main/webapp/postImg/";
-			//path = "/var/lib/tomcat9/webapps/SPP/postImg/";
+			//path = "C:/Users/park/git/SPP/SPP/src/main/webapp/postImg/";
+			path = "/var/lib/tomcat9/webapps/SPP/postImg/";
 		}else if(fileType.equals("postFile")) {
-			path = "C:/Users/park/git/SPP/SPP/src/main/webapp/postFile/";
-			//path = "/var/lib/tomcat9/webapps/SPP/postFile/";
+			//path = "C:/Users/park/git/SPP/SPP/src/main/webapp/postFile/";
+			path = "/var/lib/tomcat9/webapps/SPP/postFile/";
 		}
 		String filePath = path + fileName;
 		File file = new File(filePath);

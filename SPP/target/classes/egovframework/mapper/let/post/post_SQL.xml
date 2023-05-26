@@ -19,7 +19,10 @@
 					B.PO_TYPE_NAME
 				FROM POST A INNER JOIN POTYPE B
 				ON A.PO_TYPE = B.PO_TYPE_CODE
-				WHERE PO_TYPE = #{poType}
+				WHERE 1 = 1
+				<if test="poType != null">
+				AND PO_TYPE = #{poType}
+				</if>
 				<if test="poTitle != null and poContent != null">
 				AND PO_TITLE LIKE '%'||#{poTitle}||'%'
 				OR PO_CONTENT LIKE '%'||#{poContent}||'%'
@@ -43,7 +46,10 @@
 	<select id="postDAO.selectAllPostCnt" parameterType="SPP.post.PostVO" resultType="int">
 		SELECT COUNT(*) 
 		FROM POST
-		WHERE PO_TYPE = #{poType}
+		WHERE 1 = 1
+		<if test="poType != null">
+			AND PO_TYPE = #{poType}
+		</if>
 		<if test="poBoth != null">
 			AND PO_TITLE LIKE '%'||#{poBoth}||'%'
 			OR PO_CONTENT LIKE '%'||#{poBoth}||'%'
@@ -100,13 +106,19 @@
 	<update id="postDAO.updatePostMenu" parameterType="SPP.post.PostVO">
 		UPDATE POTYPE
 		SET 
-		PO_TYPE_NAME = #{poTypeName}
+		PO_TYPE_NAME = #{poTypeName},
+		PO_TYPE_CODE = #{poTypeCode}
 		WHERE PO_TYPE_CODE = #{poTypeCode}
 	</update>
 	
 	<delete id="postDAO.deletePostMenu" parameterType="SPP.post.PostVO">
 		DELETE FROM POTYPE
 		WHERE PO_TYPE_CODE = #{poTypeCode}	
+	</delete>
+	
+	<delete id="postDAO.deletePostMenuInPost" parameterType="SPP.post.PostVO">
+		DELETE FROM POST
+		WHERE PO_TYPE = #{poTypeCode}	
 	</delete>
 	
 	<update id="postDAO.deleteMimgFile" parameterType="SPP.post.PostVO">

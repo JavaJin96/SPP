@@ -122,6 +122,12 @@ $( document ).ready(function() {
 	$("#backBtn").on("click", function(){
 		window.history.back();
 	});
+	
+	$("#deleteBtn").on("click", function(){
+		var poNo = $(this).data("pono");
+		var url = "${pageContext.request.contextPath}/post/postDelete.do?poNo="+poNo;
+		location.href = url 
+	});
 });
 </script>
 <div id="main_Div">
@@ -164,8 +170,9 @@ $( document ).ready(function() {
 			<div id="btnDiv">
 				<c:if test="${loginMember.memAuth eq 3 }">
 					<input type="button" value="수정하기" class="btn btn-primary" id="modifyBtn" data-pono="${resPvo.poNo }"/>
+					<input type="button" value="삭제하기" class="btn btn-danger" id="deleteBtn" data-pono="${resPvo.poNo }"/>
 				</c:if>
-				<input type="button" value="뒤로가기" class="btn btn-danger" id="backBtn"/>
+				<input type="button" value="뒤로가기" class="btn btn-warning" id="backBtn"/>
 			</div>
 		</form:form>
 	</div>	

@@ -153,7 +153,7 @@ $( document ).ready(function() {
 			</form:form>
 		</c:if>
 		<c:if test="${modiFlag ne 'modify'}">
-			<form:form modelAttribute="resPvo" action="/SPP/post/insertPost.do" method="post" enctype="multipart/form-data">
+			<form:form modelAttribute="pvo" action="/SPP/post/insertPost.do" method="post" enctype="multipart/form-data">
 				<div id="mImgDiv">
 					<img alt="없습니다." src="${pageContext.request.contextPath }/images/icons/noimage.png" id="mImg">
 				</div>

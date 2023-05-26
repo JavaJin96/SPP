@@ -132,6 +132,10 @@
 	.menuAtag{
 		font-weight: bold;
 	}
+	.paging img{
+		width:25px;
+		margin-right: 5px;
+	}
 </style>
 
 <script>
@@ -152,9 +156,31 @@ $( document ).ready(function() {
 	$("#newPost").on("click", function(){
 		location.href = "${pageContext.request.contextPath}/post/postForm.do";
 	});
+	
+	$(".menuAtag").on("click", function(){
+		var url = "";
+		var code = $(this).data("code");
+		if(code == "all") {
+			url = "${pageContext.request.contextPath}/post/main.do";
+		}else if(code != "all"){
+			url = "${pageContext.request.contextPath}/post/main.do?pageType="+code;
+		}
+		location.href = url;
+	});
+	
+	$("#postMenuBtn").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/admin/adminMain.do";
+	});
+	
+	
 });
 function linkPage(pageNo){
-	location.href = "${pageContext.request.contextPath}/post/main.do?pageNo="+pageNo;
+	var pageType = "${pageType}";
+	if(pageType == "undefined" || pageType == ""){
+		location.href = "${pageContext.request.contextPath}/post/main.do?pageNo="+pageNo;
+	}else if(pageType != "undefined"){
+		location.href = "${pageContext.request.contextPath}/post/main.do?pageNo="+pageNo+"&pageType="+pageType;
+	}
 }
 </script>
 <div id="main_Div">
@@ -206,11 +232,19 @@ function linkPage(pageNo){
 				<c:if test="${loginMember.memAuth eq 3 }">
 					<input type="button" class="btn btn-primary" id="newPost" value="글작성하기">
 				</c:if>
+				<c:if test="${pageType ne null }">
+					<input type="hidden" value="${pageType }" name="pageType"/>
+				</c:if>
 			</form>
 		</div>
 		<div id="menuDiv">
+			<input type="button" class="btn btn-warning" id="postMenuBtn" value="분류관리">
+			<hr style="display:inline-block; width:100%;">
+			<br>
+			<a class="menuAtag" data-code="all">전체</a>
+			<br>
 			<c:forEach items="${postMenus }" var="menu">
-				<a class="menuAtag">${menu.poTypeName }></a>
+				<a class="menuAtag" data-code="${menu.poTypeCode }">${menu.poTypeName }></a>
 				<br>
 			</c:forEach>
 		</div>

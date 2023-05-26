@@ -44,6 +44,30 @@ $( document ).ready(function() {
 		$("#"+memId).submit();
 	});
 	
+	$(".saveBtn").on("click", function(){
+		var code = $(this).data("code");
+		var codeVal = $("input[id="+code+"]").val();
+		
+		var nameVal = $("input[id="+code+"name]").val();
+		location.href = "${pageContext.request.contextPath}/admin/updateMenu.do?code="+codeVal+"&name="+nameVal;
+	});
+	
+	$(".delBtn").on("click", function(){
+		var code = $(this).data("code");
+		var name = $(this).data("name");
+		location.href = "${pageContext.request.contextPath}/admin/deleteMenu.do?code="+code+"&name="+name;
+	});
+	
+	$("#insertBtn").on("click", function(){
+		var insertCode = $("#insertCode").val();
+		var insertName = $("#insertName").val();
+		location.href = "${pageContext.request.contextPath}/admin/insertMenu.do?code="+insertCode+"&name="+insertName;
+	});
+	
+	$("#cancelBtn").on("click", function(){
+		
+	});
+	
 });
 </script>
 <div id="main_Div">
@@ -131,7 +155,43 @@ $( document ).ready(function() {
 		</div>
 		<div id="div3"></div>
 		
-		<div id="div4"></div>
+		<div id="div4">
+			<h4>POST 메뉴 관리</h4>
+			<table class="table table-warning table-bordered table-hover">
+				<thead class="table table-warning table-bordered table-hover">
+					<tr>
+						<td>메뉴코드</td>
+						<td>메뉴명</td>
+						<td>저장</td>
+						<td>삭제</td>
+					</tr>
+				</thead>
+				<tbody>
+					<c:if test="${fn:length(menuList) > 0}">
+						<c:forEach items="${menuList }" var="menu">
+							<tr>
+								<td><input type="text" value="${menu.poTypeCode }" class="codeIpb" id="${menu.poTypeCode }"></td>
+								<td><input type="text" value="${menu.poTypeName }" class="nameIpb" id="${menu.poTypeCode }name"></td>
+								<td><input type="button" value="저장" class="btn btn-primary saveBtn" data-code="${menu.poTypeCode }" data-name="${menu.poTypeName }"></td>
+								<td><input type="button" value="삭제" class="btn btn-danger delBtn" data-code="${menu.poTypeCode }" data-name="${menu.poTypeName }"></td>
+							</tr>
+						</c:forEach>
+					</c:if>
+					
+					<c:if test="${fn:length(menuList) <= 0}">
+						<tr>
+							<td colspan="3">조회 데이터가 없습니다.</td>
+						</tr>
+					</c:if>
+					<tr>
+						<td><input type="text" name="insertCode" id="insertCode" /></td>
+						<td><input type="text" name="insertName" id="insertName" /></td>
+						<td><input type="button" id="insertBtn" value="등록하기" class="btn btn-primary"/></td>
+						<td><input type="button" id="cancelBtn" value="취소하기" class="btn btn-danger"/></td>
+					</tr>
+				</tbody>
+			</table>	
+		</div>
 	</c:if>
 	<c:if test="${loginMember.memAuth ne 3 }">
 		<div id="noAuthDiv">

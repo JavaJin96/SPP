@@ -50,8 +50,6 @@ public class PostController {
 		paginationInfo.setRecordCountPerPage(6);
 		
 		String poType = req.getParameter("pageType");
-		if(poType == null) poType = "1";
-		
 		paramPvo.setPoType(poType);
 		paginationInfo.setTotalRecordCount(postService.selectAllPostCnt(paramPvo));
 		
@@ -59,10 +57,14 @@ public class PostController {
 		int endNo = paginationInfo.getLastRecordIndex();
 		paramPvo.setStartNum(startNo+"");
 		paramPvo.setEndNum(endNo+"");
+
+		System.out.println(startNo + "@@@@");
+		System.out.println(endNo + "@@@@");
 		List<PostVO> pList = (List<PostVO>) postService.selectAllPost(paramPvo);
 		
 		List<PostVO> postMenus = (List<PostVO>) postService.selectPostMenu();
 		
+		mav.addObject("pageType", poType);
 		mav.addObject("postList", pList);
 		mav.addObject("postMenus", postMenus);
 		mav.addObject("paginationInfo", paginationInfo);
@@ -147,16 +149,13 @@ public class PostController {
 		
 		String poAttfileFlag = req.getParameter("poAttfileFlag");
 		if(poAttfileFlag == null) {
-			System.out.println("첨부들어왔어유!");
 			if(mre.getFile("attFile").getSize() != 0) {
 				String attFilePath = postService.fileUpload(mre, req, "attFile");
 				if(attFilePath != null) pvo.setPoAttfile(attFilePath);
 			}
 		}
-		
 		String poMimgFlag = req.getParameter("poMimgFlag");
 		if(poMimgFlag == null) {
-			System.out.println("섬네일들어왔어유!");
 			if(mre.getFile("mImg").getSize() != 0) {
 				String imgFilePath = postService.fileUpload(mre, req, "mImg");
 				if(imgFilePath != null) pvo.setPoMimg(imgFilePath);
@@ -166,6 +165,27 @@ public class PostController {
 		postService.updatePost(pvo);
 		
 		mav.setViewName("redirect:/post/postDtl.do?poNo="+pvo.getPoNo());
+		return mav;
+	}
+	
+	
+	@RequestMapping("post/postDelete.do")
+	public ModelAndView postDelete(HttpServletRequest req) {
+		ModelAndView mav = new ModelAndView();
+		
+		PostVO pvo = new PostVO();
+		pvo.setPoNo(req.getParameter("poNo"));
+		
+		PostVO selPvo = postService.selectPost(pvo);
+		if(selPvo.getPoMimg() != null) {
+			postService.fileDelete(selPvo.getPoMimg(), "postImg");
+		}
+		if(selPvo.getPoAttfile() != null) {
+			postService.fileDelete(selPvo.getPoAttfile(), "postFile");
+		}
+		postService.deletePost(pvo);
+		
+		mav.setViewName("redirect:/post/main.do");
 		return mav;
 	}
 	
